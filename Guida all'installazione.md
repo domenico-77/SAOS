@@ -15,6 +15,7 @@ Per la corretta replicazione dell'applicazione, è necessario che siano installa
 - mysql-connector-j-9.1.0.jar
 - tika-app-3.0.0.jar
 - vault-java-driver-5.1.0.jar
+- telegrambots-6.1.0.jar
 
 ---
 
