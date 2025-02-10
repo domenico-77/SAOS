@@ -101,7 +101,66 @@ Per ciascuna di esse è stato configurato un account SQL separato, protetto da p
 
 Le tabelle verifica_user e verifica_proposte contengono rispettivamente gli hash delle credenziali degli utenti e dei file delle proposte. Per aumentare la sicurezza, queste tabelle sono separate dalle altre, poiché il sale utilizzato per generare gli hash è conservato nelle tabelle user e proposte. Questa separazione rende più difficile per un attaccante ottenere tutte le informazioni sensibili, poiché dovrebbe compromettere entrambe le tabelle e i relativi account: quella con gli hash e quella con i dati originali (compreso il sale).
 Per garantire la sicurezza delle connessioni al database, è stato attivato il supporto SSL. Questa configurazione permette di proteggere le comunicazioni tra client e server tramite crittografia, prevenendo l’intercettazione e la manipolazione dei dati sensibili
-![image](https://github.com/user-attachments/assets/333b959b-0d1e-4117-aa98-584980869234)
+![image](https://github.com/user-attachments/assets/333b959b-0d1e-4117-aa98-584980869234)  
+
+### Gestione sicura cookie e sessione
+Il cookie “remember me” viene impostato con le seguenti opzioni di sicurezza:  
+
+-	**HttpOnly e Secure** sono configurati direttamente nel codice.
+
+-	**SameSite=Strict** è impostato nella configurazione di Apache, nel file context.xml con la seguente direttiva:
+```js
+<CookieProcessor sameSiteCookies="strict" />
+```
+Impostare SameSite=Strict per i cookie aumenta la sicurezza impedendo che vengano inviati in richieste provenienti da altri siti (cross-site). Questo protegge da attacchi come il CSRF, dove un sito esterno potrebbe cercare di sfruttare i cookie per compiere azioni non autorizzate a nome dell’utente. Impostando Strict, i cookie vengono inviati solo se la richiesta proviene dallo stesso dominio, migliorando la privacy.  
+
+Il cookie “remember me” viene crittografato utilizzando l’algoritmo AES GCM e viene salvato nel database con una scadenza pari a 7 giorni. Questo consente agli utenti di rimanere autenticati per un periodo prolungato senza la necessità di effettuare nuovamente il login, migliorando l’esperienza utente senza compromettere la sicurezza.  
+
+La classe **TokenCleanupManager** è progettata per gestire la cancellazione automatica dei token “remember me” scaduti dal database.  
+
+-	Ogni 5 minuti, viene eseguito un task che chiama la funzione deleteExpiredTokens per rimuovere i token scaduti. Questo processo garantisce che il database non contenga token inutilizzabili, migliorando la sicurezza.
+  
+-	L’intervallo di 5 minuti è stato scelto per bilanciare la necessità di mantenere il database pulito e l’efficienza del sistema. Eseguire questa operazione troppo frequentemente potrebbe causare un carico elevato sul sistema, mentre farlo troppo raramente potrebbe lasciare token scaduti per un tempo eccessivo.
+
+Quando l’utente effettua il login e dispone di un cookie “remember me”, il sistema verifica se il cookie è presente nel database. Se il cookie è presente (ovvero non è scaduto), vengono decrittografati sia il cookie inviato dal client che quello memorizzato nel database, e i due valori vengono confrontati per verificarne la corrispondenza.  
+
+Nel caso in cui l’utente abbia già un cookie “remember me” ed effettui un nuovo login selezionando la checkbox ricordami, il sistema verifica se il cookie esistente è presente nel database. Se il cookie è trovato nel database, viene eliminato e un nuovo cookie “remember me” viene generato e memorizzato nel database. Questo processo garantisce che il vecchio cookie venga rimosso e sostituito con uno nuovo, mantenendo la sicurezza e aggiornando la sessione dell’utente.  
+
+
+Per garantire una maggiore protezione della privacy, nella sessione viene memorizzato l’attributo nickname al posto dell’e-mail. Il nickname, essendo meno sensibile rispetto all’email, non espone direttamente l’identità dell’utente, riducendo il rischio in caso di esposizione accidentale della sessione. Se l’ID della sessione venisse divulgato o se un attaccante riuscisse a ottenere l’accesso alla sessione, non avrebbe accesso a informazioni personali sensibili, come l’e-mail dell’utente. Al contrario, l’e-mail è un dato unico e facilmente identificabile, e se compromessa, potrebbe essere utilizzata in attacchi come brute force o phishing, mettendo a rischio l’account dell’utente.
+La durata della sessione è stata impostata a 15 minuti, in modo che scada automaticamente dopo un periodo di inattività dell’utente.  
+
+Per prevenire attacchi di **session fixation**, viene utilizzato il metodo **request.changeSessionId()**, che cambia l’ID di sessione corrente ogni volta che l’utente effettua il login o passa dal filtro AuthenticationFilter. In pratica, quando l’utente accede al sistema, viene generato un nuovo session ID, rendendo invalido quello precedente. Questo è fondamentale per evitare che un attaccante, anche se conosce l’ID di sessione di un utente, possa sfruttarlo, poiché l’ID precedente viene sostituito con uno nuovo durante la creazione della sessione.  
+
+Il filtro **AuthenticationFilter** ha lo scopo di gestire l’autenticazione dell’utente e la validità del cookie “remember me” quando un utente accede a una delle URL protette (/proposte, /downloadProposal):  
+
+-	Verifica se esiste una sessione attiva e se l’utente è già autenticato. Se la sessione è valida, l’utente è considerato autenticato e il filtro permette il passaggio della richiesta alla servlet.
+  
+-	Se l’utente non ha una sessione attiva, il filtro controlla se è presente un cookie “remember me”. Se il cookie esiste, il filtro cerca di validarlo: Se il cookie è valido, il filtro crea una nuova sessione per l’utente. Se il cookie “remember me” non è presente o non valido, l’utente viene reindirizzato alla pagina sessionExpired.jsp.
+  
+
+Quando l’utente clicca sul pulsante di logout, viene attivata la servlet LogoutServlet, che gestisce l’intero processo di disconnessione seguendo questi passaggi:  
+
+1.	**Rimozione del cookie “remember me” dal browser**: Se l’utente possiede un remember me cookie questo viene eliminato dal browser dell’utente impostando il suo MaxAge a 0, garantendo la sua cancellazione.
+
+2.	**Invalidazione della sessione**: La sessione dell’utente viene invalidata, rimuovendo tutti gli attributi, inclusi quelli relativi all’utente.
+   
+3.	**Rimozione del token “remember me” dal database**: Se l’utente ha un cookie “remember me”, questo viene rimosso dal database
+   
+4.	**Reindirizzamento post-logout**: Una volta completato il processo di logout, l’utente viene reindirizzato alla pagina logout.jsp, dove viene confermato il successo dell’operazione.
+   
+### Caricamento sicuro dei file
+Per garantire caricamenti sicuri dei file, sono stati implementati i seguenti controlli:  
+
+1.	**Controllo delle estensioni dei file**: Nel form di caricamento dell’immagine del profilo (registrazione.jsp) e nel form di caricamento della proposta (proposte.jsp), è stato implementato un controllo sull’estensione dei file per ridurre il numero di richieste al server.
+   
+2.	**Controllo delle dimensioni dei file**: Sia lato client che lato server sono stati effettuati controlli sulle dimensioni delle immagini e delle proposte per evitare che superino le dimensioni massime impostate nel database (BLOB).
+	
+3.	**Sanitizzazione del nome della proposta**: È stato applicato un processo di sanitizzazione sul nome della proposta prima di inserirlo nel database, per prevenire eventuali vulnerabilità come l’iniezione di codice.
+   
+4.	**Sicurezza tramite Apache Tika**: Apache Tika è stato utilizzato lato server in RegisterServlet e ProposteServlet per garantire la sicurezza durante il caricamento delle foto del profilo e delle proposte. La libreria analizza il contenuto dei file per determinare il tipo MIME corretto, prevenendo così il caricamento di file dannosi mascherati da immagini o documenti legittimi.
+   
+5.	**Protezione tramite token CSRF (Cross-Site Request Forgery)**: Per il caricamento delle proposte, è stato implementato un token CSRF come misura di sicurezza per proteggere l’applicazione dagli attacchi di tipo CSRF. Quando l’utente carica una proposta, il server genera un token CSRF unico e lo associa alla sessione dell’utente. Questo token viene inviato come parte del modulo HTML (in un campo nascosto). Quando il modulo viene inviato, il server verifica che il token CSRF inviato corrisponda a quello associato alla sessione dell’utente. Se il token non è valido o manca, la richiesta viene respinta, impedendo l’attacco CSRF. Poiché il token è unico per ogni sessione e richiesta, un attaccante non può facilmente indovinare o replicare il token valido. Di conseguenza, anche se un attaccante riesce a indurre l’utente a inviare una richiesta, questa verrà rifiutata dal server a causa della mancanza o invalidità del token CSRF. Dopo l’uso, il token viene rimosso dalla sessione, riducendo il rischio di riutilizzo e prevenendo attacchi di tipo reply.
 
  
 
