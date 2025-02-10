@@ -82,7 +82,7 @@ La classe HashUtil è stata progettata per gestire il processo di hashing sicuro
 Una volta che il file criptato viene prelevato dal database e decrittografato, il sistema ricalcola l’hash del contenuto del file e lo confronta con l’hash precedentemente memorizzato. Se i due valori non corrispondono, significa che il contenuto del file è stato alterato in qualche modo. In tal caso, il sistema può rilevare la modifica e prevenire l’uso di dati compromessi.
 Questa strategia consente di risolvere una problematica critica legata alla vulnerabilità Time-of-Check to Time-of-Use (TOC/TOU)  
 
-Gestione sicura del Database
+### Gestione sicura del Database
 Nel database labSAOS sono state create cinque tabelle: 
 
 ![image](https://github.com/user-attachments/assets/53e80ba0-ada4-43dc-9307-a6594961331d)
