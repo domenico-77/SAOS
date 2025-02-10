@@ -87,28 +87,21 @@ Nel database labSAOS sono state create cinque tabelle:
 
 ![image](https://github.com/user-attachments/assets/53e80ba0-ada4-43dc-9307-a6594961331d)
 
+![image](https://github.com/user-attachments/assets/a2088950-1e25-4caa-a115-3891944e0470)
 
+![image](https://github.com/user-attachments/assets/6b207d92-7c72-4a72-9ecf-992dfb28798c)
 
+![image](https://github.com/user-attachments/assets/04348d86-a790-43df-bec5-5abd005e50d8)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+![image](https://github.com/user-attachments/assets/211ae5bf-f346-4137-8ec2-96bb7232c674)
 
 Per ciascuna di esse è stato configurato un account SQL separato, protetto da password robuste, con l’obiettivo di garantire un elevato livello di sicurezza e rendere difficili eventuali tentativi di compromissione. È stato applicato in oltre il principio del minimo privilegio, ovvero che ogni utente ha solo i privilegi necessari per svolgere le proprie funzioni. Questo riduce la superficie di attacco e minimizza i danni potenziali in caso di compromissione.
- 
+![image](https://github.com/user-attachments/assets/1519fea2-361a-4805-ab5b-1227af658b78)
+
 
 Le tabelle verifica_user e verifica_proposte contengono rispettivamente gli hash delle credenziali degli utenti e dei file delle proposte. Per aumentare la sicurezza, queste tabelle sono separate dalle altre, poiché il sale utilizzato per generare gli hash è conservato nelle tabelle user e proposte. Questa separazione rende più difficile per un attaccante ottenere tutte le informazioni sensibili, poiché dovrebbe compromettere entrambe le tabelle e i relativi account: quella con gli hash e quella con i dati originali (compreso il sale).
 Per garantire la sicurezza delle connessioni al database, è stato attivato il supporto SSL. Questa configurazione permette di proteggere le comunicazioni tra client e server tramite crittografia, prevenendo l’intercettazione e la manipolazione dei dati sensibili
+![image](https://github.com/user-attachments/assets/333b959b-0d1e-4117-aa98-584980869234)
+
  
 
