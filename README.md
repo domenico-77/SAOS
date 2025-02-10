@@ -30,7 +30,8 @@ La vulnerabilità XSS si verifica quando un'applicazione permette l'inserimento 
 ```
 6.	**Sicurezza nelle richieste HTTPS**
 
-E’ stato necessario implementare una gestione sicura delle sessioni, con time-out appropriato per evitare sessioni di lunga durata non necessarie. Gestire quindi in modo sicuro la creazione e la distruzione delle sessioni, prevenendo la session fixation.
+E’ stato necessario implementare una gestione sicura delle sessioni, con time-out appropriato per evitare sessioni di lunga durata non necessarie. Gestire quindi in modo sicuro la creazione e la distruzione delle sessioni, prevenendo la session fixation.  
+
 7.	**Mancanza di un sistema di alert per la gestione degli accessi**  
 
 È stata rilevata l'assenza di un meccanismo di monitoraggio e allerta per accessi sospetti o tentativi di azioni anomale. Questa lacuna impedisce il monitoraggio del sistema in tempo reale.
