@@ -85,6 +85,7 @@ Questa strategia consente di risolvere una problematica critica legata alla vuln
 Gestione sicura del Database
 Nel database labSAOS sono state create cinque tabelle: 
 
+![image](https://github.com/user-attachments/assets/53e80ba0-ada4-43dc-9307-a6594961331d)
 
 
 
