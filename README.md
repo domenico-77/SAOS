@@ -80,5 +80,34 @@ La classe HashUtil è stata progettata per gestire il processo di hashing sicuro
 2.	**Proposte**: Nonostante le proposte vengano crittografate utilizzando l’algoritmo AES in modalità GCM (Galois/Counter Mode), che offre una protezione sia contro l’accesso non autorizzato ai dati che contro le modifiche, è stato deciso di eseguire un passo aggiuntivo per garantire un ulteriore livello di sicurezza. Prima che il contenuto del file venga crittografato, è stato applicato un algoritmo di hashing, SHA-512, al fine di creare un’impronta unica del contenuto del file stesso. Questo hash viene calcolato e memorizzato separatamente dal file crittografato.
 
 Una volta che il file criptato viene prelevato dal database e decrittografato, il sistema ricalcola l’hash del contenuto del file e lo confronta con l’hash precedentemente memorizzato. Se i due valori non corrispondono, significa che il contenuto del file è stato alterato in qualche modo. In tal caso, il sistema può rilevare la modifica e prevenire l’uso di dati compromessi.
-Questa strategia consente di risolvere una problematica critica legata alla vulnerabilità Time-of-Check to Time-of-Use (TOC/TOU)
+Questa strategia consente di risolvere una problematica critica legata alla vulnerabilità Time-of-Check to Time-of-Use (TOC/TOU)  
+
+Gestione sicura del Database
+Nel database labSAOS sono state create cinque tabelle: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Per ciascuna di esse è stato configurato un account SQL separato, protetto da password robuste, con l’obiettivo di garantire un elevato livello di sicurezza e rendere difficili eventuali tentativi di compromissione. È stato applicato in oltre il principio del minimo privilegio, ovvero che ogni utente ha solo i privilegi necessari per svolgere le proprie funzioni. Questo riduce la superficie di attacco e minimizza i danni potenziali in caso di compromissione.
+ 
+
+Le tabelle verifica_user e verifica_proposte contengono rispettivamente gli hash delle credenziali degli utenti e dei file delle proposte. Per aumentare la sicurezza, queste tabelle sono separate dalle altre, poiché il sale utilizzato per generare gli hash è conservato nelle tabelle user e proposte. Questa separazione rende più difficile per un attaccante ottenere tutte le informazioni sensibili, poiché dovrebbe compromettere entrambe le tabelle e i relativi account: quella con gli hash e quella con i dati originali (compreso il sale).
+Per garantire la sicurezza delle connessioni al database, è stato attivato il supporto SSL. Questa configurazione permette di proteggere le comunicazioni tra client e server tramite crittografia, prevenendo l’intercettazione e la manipolazione dei dati sensibili
+ 
 
