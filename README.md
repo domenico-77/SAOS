@@ -168,7 +168,7 @@ Per garantire caricamenti sicuri dei file, sono stati implementati i seguenti co
    
 5.	**Protezione tramite token CSRF (Cross-Site Request Forgery)**: Per il caricamento delle proposte, è stato implementato un token CSRF come misura di sicurezza per proteggere l’applicazione dagli attacchi di tipo CSRF. Quando l’utente carica una proposta, il server genera un token CSRF unico e lo associa alla sessione dell’utente. Questo token viene inviato come parte del modulo HTML (in un campo nascosto). Quando il modulo viene inviato, il server verifica che il token CSRF inviato corrisponda a quello associato alla sessione dell’utente. Se il token non è valido o manca, la richiesta viene respinta, impedendo l’attacco CSRF. Poiché il token è unico per ogni sessione e richiesta, un attaccante non può facilmente indovinare o replicare il token valido. Di conseguenza, anche se un attaccante riesce a indurre l’utente a inviare una richiesta, questa verrà rifiutata dal server a causa della mancanza o invalidità del token CSRF. Dopo l’uso, il token viene rimosso dalla sessione, riducendo il rischio di riutilizzo e prevenendo attacchi di tipo reply.
 ### Consultare anche:  
-[Guida all'installazione](./Guida all'installazione.md)
+[Guida all'installazione](./INSTALLAZIONE.md)
 [Test effettuati](./TEST.md)
 
 
