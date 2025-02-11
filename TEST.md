@@ -4,7 +4,8 @@ Questa sezione “Test d’uso” si occupa di verificare l’applicazione dal p
 Dopo aver compilato i vari campi richiesti, una volta che l’utente cliccherà su registrati, l’utente verrà reindirizzato sulla seguente pagina:  
 ![image](https://github.com/user-attachments/assets/f5923627-55f9-4063-b3c7-85c1eda388af)  
 ### Test di registrazione con file non valido .gif:
-![image](https://github.com/user-attachments/assets/6246f8fd-21e1-46dd-9320-308abcec399f) 
+![image](https://github.com/user-attachments/assets/6246f8fd-21e1-46dd-9320-308abcec399f)   
+
 Il modulo di registrazione permette di selezionare solamente i file con estensione .jpg, .jpeg o .png, grazie all’attributo accept presente nell’elemento <input>. Questo filtro aiuta a limitare i tipi di file visibili nella finestra di selezione, migliorando l’esperienza utente e riducendo il rischio di caricamenti errati.   
 ![image](https://github.com/user-attachments/assets/d6bb2a98-4f9b-4e5b-8994-6f61d79544ac)  
 ### Risultato test di registrazione con email o nickname già utilizzati:
