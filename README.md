@@ -174,7 +174,7 @@ Il sistema integra un Bot Telegram che invia notifiche in tempo reale all'ammini
 - Accessi utente, per registrare tentativi di login e migliorare la sicurezza.
 - Caricamento di nuove proposte, notificando l'inserimento di contenuti nel sistema.
 - Attività anomala, come il rilevamento di file potenzialmente malevoli, con un avviso immediato per l'analisi e la mitigazione.
-![WhatsApp Image 2025-02-11 at 20 01 25](https://github.com/user-attachments/assets/499ca19c-bee0-4e90-a639-4cafa05e2da0)
+
 <img src="https://github.com/user-attachments/assets/499ca19c-bee0-4e90-a639-4cafa05e2da0" alt="Descrizione" width="500">
 
 
