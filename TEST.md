@@ -76,7 +76,8 @@ possiamo quindi caricare il file eseguibile:
 
 Anche in questo caso otteniamo il seguente comportamento:  
 
-![image](https://github.com/user-attachments/assets/e86046bc-0af2-4637-9938-5b53023bf865)
+![image](https://github.com/user-attachments/assets/e86046bc-0af2-4637-9938-5b53023bf865)  
+
 Lo stesso test è stato effettuato sul form delle proposte ed è stato riscontrato lo stesso comportamento
 ### Test di registrazione con form aventi campi vuoti
 In questo test, si cerca di inviare un modulo con uno o più campi vuoti per verificare se l’applicazione riesce a gestire correttamente l’errore e impedire la registrazione incompleta.  
