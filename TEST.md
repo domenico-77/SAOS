@@ -60,8 +60,10 @@ Supponiamo che un attaccante voglia cercare di caricare un file eseguibile malev
 Notiamo che il form non ci consente di inserire file .exe; possiamo quidi effettuare due test  
 - 1.	Cambiare estensione da .exe a .jpg (formato consentito):
 ![image](https://github.com/user-attachments/assets/7633c32e-9d68-49cc-a025-0689568a8064)
+
 Provando a registrarsi otteniamo la seguente risposta:
-![image](https://github.com/user-attachments/assets/330ebc2c-66ee-4364-9843-14095fe8f8a8)
+![image](https://github.com/user-attachments/assets/330ebc2c-66ee-4364-9843-14095fe8f8a8)  
+
 Tika ha riconosciuto l’eseguibile caricato
 ![image](https://github.com/user-attachments/assets/24a5c79b-599a-4c3c-9bb1-295a016e2153)
 
