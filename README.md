@@ -2,6 +2,8 @@
 Nel presente documento viene descritta l'attività svolta di messa in sicurezza di un'applicazione web. L'obiettivo principale è stato l'identificazione e la mitigazione di criticità legate alla gestione dei dati sensibili degli utenti, ma anche alla sicurezza delle richieste HTTPs, alla protezione contro attacchi XSS e all'upload arbitrario di file.  
 
 L'applicazione web oggetto dell’analisi è stata progettata come un punto di condivisione di idee di miglioramento dell’attività aziendale. Si occupa quindi di gestire i file contenenti proposte, inviati dai dipendenti tramite documenti di testo in formato txt. Il sistema consente agli utenti di registrarsi, accedere alla piattaforma e caricare le proprie proposte, che vengono archiviate e rese disponibili per la consultazione anche da parte di altri utenti.  
+![SAOS diagramma](https://github.com/user-attachments/assets/b5ab2aa9-3eff-4585-86f7-e3c130fc28fc)
+
 
 Questa funzionalità permette ai dipendenti di visualizzare le proposte già inserite, favorendo il confronto e la collaborazione sulle idee per migliorare l’attività aziendale. Tuttavia, la gestione di questi file e delle informazioni sensibili inserite dagli utenti ha reso necessaria l’implementazione di specifiche misure di sicurezza per prevenire vulnerabilità riscontrate:  
 
