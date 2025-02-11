@@ -74,7 +74,8 @@ Tika ha riconosciuto l’eseguibile caricato
 possiamo quindi caricare il file eseguibile:
 ![image](https://github.com/user-attachments/assets/a0751a5d-099a-4653-bd12-bb4ad1825b62)
 
-Anche in questo caso otteniamo il seguente comportamento:
+Anche in questo caso otteniamo il seguente comportamento:  
+
 ![image](https://github.com/user-attachments/assets/e86046bc-0af2-4637-9938-5b53023bf865)
 Lo stesso test è stato effettuato sul form delle proposte ed è stato riscontrato lo stesso comportamento
 ### Test di registrazione con form aventi campi vuoti
