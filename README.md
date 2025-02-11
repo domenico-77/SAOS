@@ -98,7 +98,8 @@ Nel database labSAOS sono state create cinque tabelle:
 
 ![image](https://github.com/user-attachments/assets/211ae5bf-f346-4137-8ec2-96bb7232c674)
 
-Per ciascuna di esse è stato configurato un account SQL separato, protetto da password robuste, con l’obiettivo di garantire un elevato livello di sicurezza e rendere difficili eventuali tentativi di compromissione. È stato applicato in oltre il principio del minimo privilegio, ovvero che ogni utente ha solo i privilegi necessari per svolgere le proprie funzioni. Questo riduce la superficie di attacco e minimizza i danni potenziali in caso di compromissione.
+Per ciascuna di esse è stato configurato un account SQL separato, protetto da password robuste, con l’obiettivo di garantire un elevato livello di sicurezza e rendere difficili eventuali tentativi di compromissione. È stato applicato in oltre il principio del minimo privilegio, ovvero che ogni utente ha solo i privilegi necessari per svolgere le proprie funzioni. Questo riduce la superficie di attacco e minimizza i danni potenziali in caso di compromissione.  
+
 ![image](https://github.com/user-attachments/assets/1519fea2-361a-4805-ab5b-1227af658b78)
 
 
