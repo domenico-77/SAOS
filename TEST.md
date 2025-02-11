@@ -22,7 +22,7 @@ L’utente una volta loggato potrà caricare la proposta in formato txt, una vol
 ### Test di visualizzazione del contenuto della proposta:
 L’utente per poter visualizzare il contenuto della proposta dovrà premere sul tasto Visualizza  
 ![image](https://github.com/user-attachments/assets/f6da77d1-eab1-4343-8b4a-7ad19682d952)
-###Test di caricamento proposta progettuale con estensione .pdf:
+### Test di caricamento proposta progettuale con estensione .pdf:
 ![image](https://github.com/user-attachments/assets/11425abf-e33b-48ce-beb0-ea2eb9670109)  
 Il modulo permette di selezionare solamente i file con estensione .txt, grazie all’attributo accept presente nell’elemento <input>. Questo filtro aiuta a limitare i tipi di file visibili nella finestra di selezione, migliorando l’esperienza utente e riducendo il rischio di caricamenti errati.  
 ![image](https://github.com/user-attachments/assets/4bc5afcc-7a94-4a68-8ec6-dfeb2a923163)  
