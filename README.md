@@ -182,7 +182,7 @@ Questo sistema di alert migliora la sicurezza e la gestione del sistema, permett
 ### Consultare anche:  
 [Guida all'installazione](./INSTALLAZIONE.md)  
 
-[Test effettuati](./TEST.md)
+[Test di sicurezza effettuati](./TEST.md)
 
 
  
